@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.exception;
+package hr.algebra.springbackend.rest.exception;
 
 import lombok.Getter;
 

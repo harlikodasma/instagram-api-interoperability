@@ -1,6 +1,7 @@
-package hr.algebra.springbackend.config.errors;
+package hr.algebra.springbackend.rest.config;
 
-import hr.algebra.springbackend.exception.RestClientException;
+import hr.algebra.springbackend.rest.model.RestError;
+import hr.algebra.springbackend.rest.exception.RestClientException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -3,7 +3,7 @@ package hr.algebra.springbackend.rest.service;
 import com.thaiopensource.util.PropertyMap;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidationDriver;
-import hr.algebra.springbackend.exception.RestClientException;
+import hr.algebra.springbackend.rest.exception.RestClientException;
 import hr.algebra.springbackend.rest.handler.XmlErrorHandler;
 import hr.algebra.springbackend.rest.model.Submission;
 import hr.algebra.springbackend.rest.model.ValidationType;
