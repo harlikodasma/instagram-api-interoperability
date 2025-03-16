@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.rest.config;
+package hr.algebra.springbackend.rest.handler;
 
 import hr.algebra.springbackend.rest.model.RestError;
 import hr.algebra.springbackend.rest.exception.RestClientException;
