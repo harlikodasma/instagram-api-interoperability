@@ -10,7 +10,7 @@
 	</xs:complexType>
 	
 	<xs:complexType name="studentType">
-		<xs:sequence minOccurs="1" maxOccurs="1">
+		<xs:sequence>
 			<xs:element name="name" type="xs:string" />
 			<xs:element name="surname" type="xs:string" />
 		</xs:sequence>
@@ -18,7 +18,7 @@
 	</xs:complexType>
 	
 	<xs:complexType name="examType">
-		<xs:sequence minOccurs="1" maxOccurs="1">
+		<xs:sequence>
 			<xs:element name="subject" type="subjectType" />
 			<xs:element name="student" type="studentType" />
 			<xs:element name="grade">
