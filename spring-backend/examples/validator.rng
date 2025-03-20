@@ -1,0 +1,33 @@
+<element
+	name="grades"
+	xmlns="http://relaxng.org/ns/structure/1.0"
+	datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+>
+	<zeroOrMore>
+		<element name="exam">
+			<element name="subject">
+				<attribute name="code">
+					<text />
+				</attribute>
+				<text />
+			</element>
+			<element name="student">
+				<attribute name="id">
+					<text />
+				</attribute>
+				<element name="name">
+					<text />
+				</element>
+				<element name="surname">
+					<text />
+				</element>
+			</element>
+			<element name="grade">
+				<data type="integer">
+					<param name="minInclusive">2</param>
+					<param name="maxInclusive">5</param>
+				</data>
+			</element>
+		</element>
+	</zeroOrMore>
+</element>
