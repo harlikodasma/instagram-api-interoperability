@@ -1,6 +1,6 @@
 package hr.algebra.springbackend.rest.repository;
 
-import hr.algebra.springbackend.rest.model.User;
+import hr.algebra.springbackend.rest.model.jpa.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

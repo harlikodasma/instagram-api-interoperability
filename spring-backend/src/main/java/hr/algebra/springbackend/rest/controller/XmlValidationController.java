@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static hr.algebra.springbackend.rest.model.ValidationType.RNG;
-import static hr.algebra.springbackend.rest.model.ValidationType.XSD;
+import static hr.algebra.springbackend.rest.model.enums.ValidationType.RNG;
+import static hr.algebra.springbackend.rest.model.enums.ValidationType.XSD;
 
 @RestController
 @RequiredArgsConstructor

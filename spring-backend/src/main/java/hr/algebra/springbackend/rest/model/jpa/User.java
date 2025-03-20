@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.rest.model;
+package hr.algebra.springbackend.rest.model.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +33,6 @@ public class User {
   @Column(name = "password", nullable = false)
   private String password;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false, insertable = false)
   private LocalDateTime createdAt;
 }

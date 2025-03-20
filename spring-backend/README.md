@@ -5,9 +5,10 @@ POSTGRES_USERNAME=myuser
 POSTGRES_PASSWORD=mypassword
 ```
 
-For running the Spring Boot application locally, add these VM options:
+For running the Spring Boot application locally, add these VM options and change the sample values accordingly:
 ```
 -DPOSTGRES_DB=instagram
 -DPOSTGRES_USERNAME=myuser
 -DPOSTGRES_PASSWORD=mypassword
+-DRAPIDAPI_KEY=mykey
 ```

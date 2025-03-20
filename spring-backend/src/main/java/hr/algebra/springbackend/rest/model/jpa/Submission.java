@@ -1,5 +1,6 @@
-package hr.algebra.springbackend.rest.model;
+package hr.algebra.springbackend.rest.model.jpa;
 
+import hr.algebra.springbackend.rest.model.enums.ValidationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
