@@ -1,13 +1,13 @@
-package hr.algebra.springbackend.rest.service;
+package hr.algebra.springbackend.service;
 
 import com.thaiopensource.util.PropertyMap;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidationDriver;
-import hr.algebra.springbackend.rest.exception.RestClientException;
-import hr.algebra.springbackend.rest.handler.XmlErrorHandler;
-import hr.algebra.springbackend.rest.model.enums.ValidationType;
-import hr.algebra.springbackend.rest.model.jpa.Submission;
-import hr.algebra.springbackend.rest.repository.SubmissionRepository;
+import hr.algebra.springbackend.factory.ExceptionFactory;
+import hr.algebra.springbackend.handler.XmlErrorHandler;
+import hr.algebra.springbackend.model.enums.ValidationType;
+import hr.algebra.springbackend.model.jpa.Submission;
+import hr.algebra.springbackend.repository.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -41,11 +41,11 @@ public class XmlValidationService {
   private final SubmissionRepository submissionRepository;
   private final ResourceLoader resourceLoader;
 
-  public void validate(String xml, ValidationType validationType, String validationFile) {
+  public void validate(String xml, ValidationType validationType, String validationFile, ExceptionFactory exceptionFactory) {
     List<String> errors = getValidationErrors(xml, validationType, validationFile);
 
     if (isNotEmpty(errors)) {
-      throw new RestClientException(errors);
+      throw exceptionFactory.create(errors);
     }
 
     submissionRepository.save(new Submission(xml, validationType));

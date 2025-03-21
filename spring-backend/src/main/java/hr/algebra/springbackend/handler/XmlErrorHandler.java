@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.rest.handler;
+package hr.algebra.springbackend.handler;
 
 import lombok.Getter;
 import org.xml.sax.ErrorHandler;

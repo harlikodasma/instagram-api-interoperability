@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.rest.model.jpa;
+package hr.algebra.springbackend.model.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

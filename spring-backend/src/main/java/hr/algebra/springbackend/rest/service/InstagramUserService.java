@@ -1,8 +1,8 @@
 package hr.algebra.springbackend.rest.service;
 
 import hr.algebra.springbackend.rest.model.instagram.user.followers.UserFollowersDto;
-import hr.algebra.springbackend.rest.model.jpa.InstagramUserFollower;
-import hr.algebra.springbackend.rest.repository.InstagramUserFollowerRepository;
+import hr.algebra.springbackend.model.jpa.InstagramUserFollower;
+import hr.algebra.springbackend.repository.InstagramUserFollowerRepository;
 import hr.algebra.springbackend.rest.util.XmlConversionUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -10,7 +10,7 @@ public class RestClientException extends RuntimeException {
   private final List<String> errors;
 
   public RestClientException(List<String> errors) {
-    super("Rest client exception: " + errors);
+    super("REST client exception: " + errors);
     this.errors = errors;
   }
 }

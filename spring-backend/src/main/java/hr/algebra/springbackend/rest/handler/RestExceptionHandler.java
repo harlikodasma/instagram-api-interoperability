@@ -1,6 +1,6 @@
 package hr.algebra.springbackend.rest.handler;
 
-import hr.algebra.springbackend.rest.model.RestError;
+import hr.algebra.springbackend.rest.model.errors.RestError;
 import hr.algebra.springbackend.rest.exception.RestClientException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

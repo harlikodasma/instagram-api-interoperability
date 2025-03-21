@@ -1,4 +1,4 @@
-package hr.algebra.springbackend.rest.model;
+package hr.algebra.springbackend.rest.model.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
