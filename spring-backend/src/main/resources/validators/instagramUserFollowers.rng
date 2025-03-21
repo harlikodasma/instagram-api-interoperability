@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element name="userFollowers"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <element name="data">
+        <element name="edgeFollowedBy">
+            <element name="count">
+                <data type="long"/>
+            </element>
+            <element name="pageInfo">
+                <element name="hasNextPage">
+                    <data type="boolean"/>
+                </element>
+            </element>
+            <element name="edges">
+                <zeroOrMore>
+                    <element name="node">
+                        <element name="id">
+                            <data type="long"/>
+                        </element>
+                        <element name="username">
+                            <data type="string"/>
+                        </element>
+                        <element name="fullName">
+                            <data type="string"/>
+                        </element>
+                        <element name="profilePicUrl">
+                            <data type="anyURI"/>
+                        </element>
+                        <element name="isPrivate">
+                            <data type="boolean"/>
+                        </element>
+                        <element name="isVerified">
+                            <data type="boolean"/>
+                        </element>
+                    </element>
+                </zeroOrMore>
+            </element>
+        </element>
+    </element>
+    <element name="status">
+        <value>ok</value>
+    </element>
+</element>

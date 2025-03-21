@@ -1,6 +1,5 @@
 package hr.algebra.springbackend.rest.controller;
 
-import hr.algebra.springbackend.rest.model.XmlValidationRequestDto;
 import hr.algebra.springbackend.rest.service.XmlValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static hr.algebra.springbackend.rest.model.enums.ValidationType.RNG;
 import static hr.algebra.springbackend.rest.model.enums.ValidationType.XSD;
+import static hr.algebra.springbackend.rest.service.XmlValidationService.INSTAGRAM_USER_FOLLOWERS_RNG_VALIDATION_FILE;
+import static hr.algebra.springbackend.rest.service.XmlValidationService.INSTAGRAM_USER_FOLLOWERS_XSD_VALIDATION_FILE;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,12 +20,12 @@ public class XmlValidationController {
   private final XmlValidationService xmlValidationService;
 
   @PostMapping("xsd")
-  public void validateByXsd(@RequestBody XmlValidationRequestDto validationRequestDto) {
-    xmlValidationService.validate(validationRequestDto, XSD);
+  public void validateByXsd(@RequestBody String xml) {
+    xmlValidationService.validate(xml, XSD, INSTAGRAM_USER_FOLLOWERS_XSD_VALIDATION_FILE);
   }
 
   @PostMapping("rng")
-  public void validateByRng(@RequestBody XmlValidationRequestDto validationRequestDto) {
-    xmlValidationService.validate(validationRequestDto, RNG);
+  public void validateByRng(@RequestBody String xml) {
+    xmlValidationService.validate(xml, RNG, INSTAGRAM_USER_FOLLOWERS_RNG_VALIDATION_FILE);
   }
 }

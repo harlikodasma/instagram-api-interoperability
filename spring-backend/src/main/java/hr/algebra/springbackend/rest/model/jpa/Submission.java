@@ -31,16 +31,12 @@ public class Submission {
   @Column(name = "xml_content", nullable = false)
   private String xmlContent;
 
-  @Column(name = "validator_content", nullable = false)
-  private String validatorContent;
-
   @Enumerated(STRING)
   @Column(name = "validator_type", nullable = false)
   private ValidationType validatorType;
 
-  public Submission(String xmlContent, String validatorContent, ValidationType validatorType) {
+  public Submission(String xmlContent, ValidationType validatorType) {
     this.xmlContent = xmlContent;
-    this.validatorContent = validatorContent;
     this.validatorType = validatorType;
   }
 }

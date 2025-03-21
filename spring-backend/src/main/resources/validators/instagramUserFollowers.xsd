@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="userFollowers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="data" type="dataType"/>
+                <xs:element name="status" type="xs:string" fixed="ok"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="dataType">
+        <xs:sequence>
+            <xs:element name="edgeFollowedBy" type="edgeFollowedByType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="edgeFollowedByType">
+        <xs:sequence>
+            <xs:element name="count" type="xs:long"/>
+            <xs:element name="pageInfo" type="pageInfoType"/>
+            <xs:element name="edges" type="edgesType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pageInfoType">
+        <xs:sequence>
+            <xs:element name="hasNextPage" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="edgesType">
+        <xs:sequence>
+            <xs:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="nodeType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="fullName" type="xs:string"/>
+            <xs:element name="profilePicUrl" type="xs:anyURI"/>
+            <xs:element name="isPrivate" type="xs:boolean"/>
+            <xs:element name="isVerified" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
