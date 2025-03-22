@@ -11,4 +11,5 @@ For running the Spring Boot application locally, add these VM options and change
 -DPOSTGRES_USERNAME=myuser
 -DPOSTGRES_PASSWORD=mypassword
 -DRAPIDAPI_KEY=mykey
+-DJWT_SECRET=mysecret
 ```

@@ -13,4 +13,9 @@ public class RestClientException extends RuntimeException {
     super("REST client exception: " + errors);
     this.errors = errors;
   }
+
+  public RestClientException(String message) {
+    super("REST client exception: " + message);
+    this.errors = List.of(message);
+  }
 }
