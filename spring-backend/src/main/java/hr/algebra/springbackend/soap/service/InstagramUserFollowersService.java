@@ -4,6 +4,7 @@ import hr.algebra.springbackend.repository.InstagramUserFollowerRepository;
 import hr.algebra.springbackend.service.XmlValidationService;
 import hr.algebra.springbackend.soap.exception.SoapClientException;
 import hr.algebra.springbackend.soap.model.wsdl.GetUserNodeByUsernameResponse;
+import hr.algebra.springbackend.soap.model.xml.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.soap.SoapFaultException;
@@ -70,7 +71,9 @@ public class InstagramUserFollowersService {
       Boolean isPrivateValue = Boolean.valueOf(getChildElementText(node, "isPrivate"));
       Boolean isVerifiedValue = Boolean.valueOf(getChildElementText(node, "isVerified"));
 
-      return new GetUserNodeByUsernameResponse(idValue, usernameValue, fullNameValue, profilePicUrlValue, isPrivateValue, isVerifiedValue, null);
+      return new GetUserNodeByUsernameResponse(
+        new User(idValue, usernameValue, fullNameValue, profilePicUrlValue, isPrivateValue, isVerifiedValue)
+      );
     } else {
       return new GetUserNodeByUsernameResponse("Username not found");
     }
