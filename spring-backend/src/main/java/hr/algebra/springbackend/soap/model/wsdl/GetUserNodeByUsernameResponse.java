@@ -18,5 +18,27 @@ import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 public class GetUserNodeByUsernameResponse {
 
   @XmlElement(required = true)
-  private String nodeXml;
+  private Long id;
+
+  @XmlElement(required = true)
+  private String username;
+
+  @XmlElement(required = true)
+  private String fullName;
+
+  @XmlElement(required = true)
+  private String profilePicUrl;
+
+  @XmlElement(required = true)
+  private Boolean isPrivate;
+
+  @XmlElement(required = true)
+  private Boolean isVerified;
+
+  @XmlElement
+  private String error;
+
+  public GetUserNodeByUsernameResponse(String error) {
+    this.error = error;
+  }
 }

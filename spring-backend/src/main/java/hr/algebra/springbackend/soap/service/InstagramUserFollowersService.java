@@ -16,21 +16,16 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 import static hr.algebra.springbackend.model.enums.ValidationType.XSD;
 import static hr.algebra.springbackend.service.XmlValidationService.INSTAGRAM_USER_FOLLOWERS_XSD_VALIDATION_FILE;
+import static java.util.Objects.requireNonNull;
 import static javax.xml.xpath.XPathConstants.NODESET;
 
 @Service
@@ -46,9 +41,7 @@ public class InstagramUserFollowersService {
 
     try {
       Document xmlDocument = createXmlDocument(latestXml);
-      String responseXml = findMatchingNodes(xmlDocument, username);
-
-      return new GetUserNodeByUsernameResponse(responseXml);
+      return findMatchingNodes(xmlDocument, username);
     } catch (Exception e) {
       throw new SoapFaultException("Unable to process latest data", e);
     }
@@ -60,25 +53,37 @@ public class InstagramUserFollowersService {
     return builder.parse(new InputSource(new StringReader(xml)));
   }
 
-  private String findMatchingNodes(Document xmlDocument, String username) throws XPathExpressionException, TransformerException {
+  private GetUserNodeByUsernameResponse findMatchingNodes(Document xmlDocument, String username) throws XPathExpressionException {
     XPathFactory xPathFactory = XPathFactory.newInstance();
     XPath xpath = xPathFactory.newXPath();
 
     XPathExpression expr = xpath.compile("//node[username='" + username + "']");
     NodeList nodes = (NodeList) expr.evaluate(xmlDocument, NODESET);
 
-    String nodeXml;
     if (nodes.getLength() > 0) {
       Node node = nodes.item(0);
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      StringWriter writer = new StringWriter();
-      transformer.transform(new DOMSource(node), new StreamResult(writer));
-      nodeXml = writer.toString();
-    } else {
-      nodeXml = "<node>Username not found</node>";
-    }
 
-    return nodeXml;
+      Long idValue = Long.valueOf(requireNonNull(getChildElementText(node, "id")));
+      String usernameValue = getChildElementText(node, "username");
+      String fullNameValue = getChildElementText(node, "fullName");
+      String profilePicUrlValue = getChildElementText(node, "profilePicUrl");
+      Boolean isPrivateValue = Boolean.valueOf(getChildElementText(node, "isPrivate"));
+      Boolean isVerifiedValue = Boolean.valueOf(getChildElementText(node, "isVerified"));
+
+      return new GetUserNodeByUsernameResponse(idValue, usernameValue, fullNameValue, profilePicUrlValue, isPrivateValue, isVerifiedValue, null);
+    } else {
+      return new GetUserNodeByUsernameResponse("Username not found");
+    }
+  }
+
+  private String getChildElementText(Node parent, String childName) {
+    NodeList children = parent.getChildNodes();
+    for (int i = 0; i < children.getLength(); i++) {
+      Node child = children.item(i);
+      if (child.getNodeName().equals(childName)) {
+        return child.getTextContent();
+      }
+    }
+    return null;
   }
 }
