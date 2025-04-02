@@ -38,7 +38,7 @@ function openTokenRefreshModal(authService: AuthService, dialog: MatDialog, rout
         next: (response: AuthResponseDto): void => {
           authService.setTokens(response.accessToken, response.refreshToken);
         },
-        error: () => {
+        error: (): void => {
           authService.clearTokens();
         }
       });

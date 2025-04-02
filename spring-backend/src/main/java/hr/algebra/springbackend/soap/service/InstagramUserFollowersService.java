@@ -1,5 +1,6 @@
 package hr.algebra.springbackend.soap.service;
 
+import hr.algebra.springbackend.model.jpa.InstagramUserFollower;
 import hr.algebra.springbackend.repository.InstagramUserFollowerRepository;
 import hr.algebra.springbackend.service.XmlValidationService;
 import hr.algebra.springbackend.soap.exception.SoapClientException;
@@ -26,6 +27,7 @@ import java.io.StringReader;
 
 import static hr.algebra.springbackend.model.enums.ValidationType.XSD;
 import static hr.algebra.springbackend.service.XmlValidationService.INSTAGRAM_USER_FOLLOWERS_XSD_VALIDATION_FILE;
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 import static javax.xml.xpath.XPathConstants.NODESET;
 
@@ -37,6 +39,11 @@ public class InstagramUserFollowersService {
   private final InstagramUserFollowerRepository instagramUserFollowerRepository;
 
   public GetUserNodeByUsernameResponse getUserNodeByUsername(String username) {
+    InstagramUserFollower latestUserFollower = instagramUserFollowerRepository.getLatest();
+    if (isNull(latestUserFollower)) {
+      throw new SoapClientException("No records found");
+    }
+
     String latestXml = instagramUserFollowerRepository.getLatest().getXml();
     xmlValidationService.validate(latestXml, XSD, INSTAGRAM_USER_FOLLOWERS_XSD_VALIDATION_FILE, SoapClientException::new);
 

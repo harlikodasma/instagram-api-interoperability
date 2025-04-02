@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import static hr.algebra.springbackend.soap.config.WebServiceConfig.NAMESPACE_URI;
 import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 
 @Data
@@ -17,6 +16,6 @@ import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 @XmlAccessorType(FIELD)
 public class ErrorList {
 
-  @XmlElement(name = "error", namespace = NAMESPACE_URI)
+  @XmlElement(name = "error")
   private List<String> errors;
 }

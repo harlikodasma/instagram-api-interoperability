@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import static java.lang.String.format;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.springframework.http.HttpMethod.GET;
 
@@ -45,18 +46,21 @@ public class InstagramUserService {
 
   public UserFollowersDto modifyUserFollowers(String username, Long id, UserFollowersDto userFollowers) {
     try {
-      InstagramUserFollower latestUserFollower = instagramUserFollowerRepository.getLatestByUsername(username);
+      InstagramUserFollower latestUserFollower = instagramUserFollowerRepository.getLatestByIdAndUsername(id, username);
       if (nonNull(latestUserFollower)) {
-        String latestXml = instagramUserFollowerRepository.getLatestByUsername(username).getXml();
-        return instagramUserFollowerRepository.save(new InstagramUserFollower(id, username, latestXml, userFollowers)).getJson();
+        latestUserFollower.setJson(userFollowers);
+        return instagramUserFollowerRepository.save(latestUserFollower).getJson();
       }
-      throw new RestClientException("Username not found");
+      throw new RestClientException("Object not found");
     } catch (ObjectOptimisticLockingFailureException e) {
       throw new RestClientException("Object not found");
     }
   }
 
   public void deleteUserFollowers(String username, Long id) {
+    if (isNull(instagramUserFollowerRepository.getLatestByIdAndUsername(id, username))) {
+      throw new RestClientException("Object not found");
+    }
     instagramUserFollowerRepository.deleteByUsernameAndId(username, id);
   }
 

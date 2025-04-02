@@ -17,9 +17,9 @@ import static jakarta.xml.bind.annotation.XmlAccessType.FIELD;
 @XmlAccessorType(FIELD)
 public class ServiceFault {
 
-  @XmlElement(namespace = NAMESPACE_URI, required = true)
+  @XmlElement(required = true)
   private int status;
 
-  @XmlElement(namespace = NAMESPACE_URI)
+  @XmlElement
   private ErrorList errors;
 }

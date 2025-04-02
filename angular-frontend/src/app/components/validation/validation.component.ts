@@ -8,6 +8,7 @@ import { MatButton } from '@angular/material/button';
 import { NgForOf, NgIf } from '@angular/common';
 import { ValidationService } from '../../services/validation.service';
 import { SAMPLE_XML_FOR_VALIDATION } from '../../app.constants';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-validation',
@@ -54,7 +55,7 @@ export class ValidationComponent implements OnInit {
         next: (): void => {
           this.validationSuccess = true;
         },
-        error: (error): void => {
+        error: (error: HttpErrorResponse): void => {
           if (error.status === 400) {
             this.validationSuccess = false;
             this.validationErrors = error.error.errors;

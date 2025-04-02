@@ -13,4 +13,9 @@ public class SoapClientException extends RuntimeException {
     super("SOAP client exception: " + errors);
     this.errors = errors;
   }
+
+  public SoapClientException(String message) {
+    super("SOAP client exception: " + message);
+    this.errors = List.of(message);
+  }
 }

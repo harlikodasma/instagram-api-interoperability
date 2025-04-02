@@ -10,6 +10,7 @@ import { SOAP_TEMPLATE } from '../../app.constants';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { XmlParserService } from '../../services/xml-parser.service';
 import { ViewMode } from '../../enum/view-mode.enum';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-soap',
@@ -69,8 +70,9 @@ export class SoapComponent implements OnInit {
 
   sendSoap(): void {
     if (this.soapForm.valid) {
-      this.soapService.send(this.soapForm.get('envelope')?.value).subscribe((result: string): void => {
-        this.processResponse(result);
+      this.soapService.send(this.soapForm.get('envelope')?.value).subscribe({
+        next: (result: string) => this.processResponse(result),
+        error: (error: HttpErrorResponse) => this.processResponse(error.error)
       });
     }
   }

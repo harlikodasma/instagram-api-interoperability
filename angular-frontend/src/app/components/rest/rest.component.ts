@@ -121,6 +121,7 @@ export class RestComponent implements OnInit {
       },
       error: (error: HttpErrorResponse): void => {
         if (error.status === 400) {
+          this.response = null;
           this.responseErrors = error.error.errors;
         }
       }

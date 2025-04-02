@@ -12,8 +12,8 @@ public interface InstagramUserFollowerRepository extends JpaRepository<Instagram
   @Query("SELECT iuf FROM InstagramUserFollower iuf ORDER BY iuf.createdAt DESC LIMIT 1")
   InstagramUserFollower getLatest();
 
-  @Query("SELECT iuf FROM InstagramUserFollower iuf WHERE iuf.username = :username ORDER BY iuf.createdAt DESC LIMIT 1")
-  InstagramUserFollower getLatestByUsername(@Param("username") String username);
+  @Query("SELECT iuf FROM InstagramUserFollower iuf WHERE iuf.id = :id AND iuf.username = :username ORDER BY iuf.createdAt DESC LIMIT 1")
+  InstagramUserFollower getLatestByIdAndUsername(@Param("id") Long id, @Param("username") String username);
 
   void deleteByUsernameAndId(String username, Long id);
 }
