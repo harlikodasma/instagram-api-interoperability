@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>XML-RPC Endpoint</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-radio-group [(ngModel)]="requestViewMode" (change)="onRequestViewChange($event.value)" aria-label="View Mode">
+      <mat-radio-button value="simplified">Simplified View</mat-radio-button>
+      <mat-radio-button value="raw">Raw View</mat-radio-button>
+    </mat-radio-group>
+
+    <form [formGroup]="xmlRpcForm" (ngSubmit)="sendXmlRpc()">
+      <div *ngIf="requestViewMode === ViewMode.SIMPLIFIED">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>City Name</mat-label>
+          <input matInput formControlName="cityName" required>
+          <mat-error *ngIf="xmlRpcForm.get('cityName')?.hasError('required')">City name is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="requestViewMode === ViewMode.RAW">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Method Call XML (Read-Only)</mat-label>
+          <textarea matInput formControlName="xml" rows="10" readonly></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="xmlRpcForm.invalid">Send</button>
+      </div>
+    </form>
+
+    <div *ngIf="responseRaw" class="mt20">
+      <mat-radio-group [(ngModel)]="responseViewMode" (change)="onResponseViewChange($event.value)" aria-label="Response View Mode">
+        <mat-radio-button value="simplified">Simplified Response</mat-radio-button>
+        <mat-radio-button value="raw">Raw Response</mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="responseViewMode === ViewMode.SIMPLIFIED">
+        <table mat-table [dataSource]="responseSimplified" class="full-width" *ngIf="responseSimplified.length > 0; else noData">
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+          </ng-container>
+          <ng-container matColumnDef="temperature">
+            <th mat-header-cell *matHeaderCellDef>Temperature</th>
+            <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <ng-template #noData>
+          <p>No matching cities found</p>
+        </ng-template>
+      </div>
+
+      <mat-form-field *ngIf="responseViewMode === ViewMode.RAW" appearance="fill" class="full-width">
+        <mat-label>Response</mat-label>
+        <textarea matInput [value]="responseRaw || ''" rows="15" readonly></textarea>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

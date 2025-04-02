@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>SOAP Endpoint</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-radio-group [(ngModel)]="requestViewMode" (change)="onRequestViewChange($event.value)" aria-label="View Mode">
+      <mat-radio-button value="simplified">Simplified View</mat-radio-button>
+      <mat-radio-button value="raw">Raw View</mat-radio-button>
+    </mat-radio-group>
+
+    <form [formGroup]="soapForm" (ngSubmit)="sendSoap()">
+      <div *ngIf="requestViewMode === ViewMode.SIMPLIFIED">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error *ngIf="soapForm.get('username')?.hasError('required')">Username is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="requestViewMode === ViewMode.RAW">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>SOAP Envelope (Read-Only)</mat-label>
+          <textarea matInput formControlName="envelope" rows="10" readonly></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="soapForm.invalid">Send</button>
+      </div>
+    </form>
+
+    <div *ngIf="responseRaw || responseSimplified" class="mt20">
+      <mat-radio-group [(ngModel)]="responseViewMode" (change)="onResponseViewChange($event.value)" aria-label="Response View Mode">
+        <mat-radio-button value="simplified">Simplified Response</mat-radio-button>
+        <mat-radio-button value="raw">Raw Response</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Response</mat-label>
+        <textarea
+          matInput
+          [value]="responseViewMode === ViewMode.SIMPLIFIED ? responseSimplified || '' : responseRaw || ''"
+          rows="15"
+          readonly
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

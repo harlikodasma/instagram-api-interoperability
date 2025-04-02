@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>REST Endpoints</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-radio-group [(ngModel)]="selectedMethod" (change)="onMethodChange()" aria-label="HTTP Method">
+      <mat-radio-button value="get">GET</mat-radio-button>
+      <mat-radio-button value="post">POST</mat-radio-button>
+      <mat-radio-button value="put">PUT</mat-radio-button>
+      <mat-radio-button value="delete">DELETE</mat-radio-button>
+    </mat-radio-group>
+
+    <form [formGroup]="restForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="restForm.get('username')?.hasError('required')">Username is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngIf="selectedMethod === RestOperation.PUT || selectedMethod === RestOperation.DELETE"
+        appearance="fill"
+        class="full-width"
+      >
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="id" type="number" required>
+        <mat-error *ngIf="restForm.get('id')?.hasError('required')">ID is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngIf="selectedMethod === RestOperation.POST || selectedMethod === RestOperation.PUT"
+        appearance="fill"
+        class="full-width"
+      >
+        <mat-label>User Data (JSON)</mat-label>
+        <textarea matInput formControlName="data" rows="10" required></textarea>
+        <mat-error *ngIf="restForm.get('data')?.hasError('required')">Data is required</mat-error>
+        <mat-error *ngIf="restForm.get('data')?.hasError('json')">Invalid JSON</mat-error>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="restForm.invalid">Submit</button>
+        <span *ngIf="selectedMethod === RestOperation.POST || selectedMethod === RestOperation.PUT">
+          <button mat-raised-button color="secondary" type="button" (click)="insertSampleJson()">Insert Sample JSON</button>
+        </span>
+      </div>
+    </form>
+
+    <mat-form-field appearance="fill" class="full-width" *ngIf="response">
+      <mat-label>Response</mat-label>
+      <textarea matInput [value]="response" rows="25" readonly></textarea>
+    </mat-form-field>
+
+    <div *ngIf="responseErrors !== null" class="errors">
+      <h3>Errors:</h3>
+      <ul>
+        <li *ngFor="let error of responseErrors" class="error-text">{{ error }}</li>
+      </ul>
+    </div>
+  </mat-card-content>
+</mat-card>

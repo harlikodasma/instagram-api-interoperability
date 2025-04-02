@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <span>Instagram Interoperability App</span>
+</mat-toolbar>
+<div class="content">
+  <router-outlet *ngIf="!isDashboardRoute()"></router-outlet>
+  <mat-tab-group
+    *ngIf="isDashboardRoute()"
+    mat-align-tabs="start"
+    [selectedIndex]="getSelectedTabIndex()"
+    (selectedTabChange)="onTabChange($event)"
+  >
+    <mat-tab label="Validation"></mat-tab>
+    <mat-tab label="SOAP"></mat-tab>
+    <mat-tab label="XML-RPC"></mat-tab>
+    <mat-tab label="REST"></mat-tab>
+  </mat-tab-group>
+  <div *ngIf="isDashboardRoute()" class="tab-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

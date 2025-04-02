@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>XML Validation</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="validationForm" (ngSubmit)="validate()">
+      <mat-radio-group formControlName="validationType" required>
+        <mat-radio-button value="xsd">XSD</mat-radio-button>
+        <mat-radio-button value="rng">RNG</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>XML Input</mat-label>
+        <textarea matInput formControlName="xml" rows="25" required></textarea>
+      </mat-form-field>
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="validationForm.invalid">Validate</button>
+        <button mat-raised-button color="secondary" type="button" (click)="insertSampleXml()">Insert Sample XML</button>
+      </div>
+    </form>
+
+    <div *ngIf="validationSuccess === false" class="errors">
+      <h3>Validation Errors:</h3>
+      <ul>
+        <li *ngFor="let error of validationErrors" class="error-text">{{ error }}</li>
+      </ul>
+    </div>
+    <div *ngIf="validationSuccess" class="success-text">
+      Validation successful!
+    </div>
+  </mat-card-content>
+</mat-card>
