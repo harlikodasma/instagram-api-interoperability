@@ -21,7 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
 
   return next(modifiedRequest).pipe(
     catchError((error: HttpErrorResponse): Observable<never> => {
-      if (error.status === 403) {
+      if (error.status === 403 && !req.url.endsWith('/login')) {
         openTokenRefreshModal(authService, dialog, router);
       }
       return throwError((): HttpErrorResponse => error);

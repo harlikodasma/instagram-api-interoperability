@@ -4,9 +4,10 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { MatError, MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { AuthResponseDto } from '../../models/auth-response.dto';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,8 @@ import { AuthResponseDto } from '../../models/auth-response.dto';
     MatLabel,
     MatInput,
     MatButton,
+    MatError,
+    NgIf,
     ReactiveFormsModule
   ],
   styleUrls: ['./login.component.scss']
@@ -27,6 +30,7 @@ import { AuthResponseDto } from '../../models/auth-response.dto';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  loginFailed: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,9 +48,14 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.authService.login(username!, password!).subscribe((response: AuthResponseDto): void => {
-        this.authService.setTokens(response.accessToken, response.refreshToken);
-        void this.router.navigate(['/dashboard']);
+      this.authService.login(username!, password!).subscribe({
+        next: (response: AuthResponseDto): void => {
+          this.authService.setTokens(response.accessToken, response.refreshToken);
+          void this.router.navigate(['/dashboard']);
+        },
+        error: (): void => {
+          this.loginFailed = true;
+        }
       });
     }
   }

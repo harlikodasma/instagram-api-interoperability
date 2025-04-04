@@ -12,6 +12,7 @@
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" required>
       </mat-form-field>
+      <mat-error *ngIf="loginFailed">Invalid credentials</mat-error>
       <div class="button-group">
         <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
         <button mat-raised-button color="secondary" type="button" (click)="loginAsAdmin()">Login as admin</button>
